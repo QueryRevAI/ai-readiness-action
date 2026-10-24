@@ -1,0 +1,37 @@
+# .github/workflows/ai-readiness.yml
+#
+# Runs on pull requests that change robots.txt or llms.txt. Offline: the Action reads the two files
+# from the checkout and the base commit, and its only network call is the one pull request comment.
+name: AI readiness
+
+on:
+  pull_request:
+    paths:
+      - public/robots.txt
+      - public/llms.txt
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ai-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # fetch-depth: 0 puts the base commit in the checkout, so the files can be compared.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Write the full commit SHA of the release you have read (the release page shows it): a SHA
+      # cannot be moved, a tag can. The convenient alternative is @v1, which follows each 1.x
+      # release but trusts that the tag only moves to code you would have accepted.
+      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.0
+        with:
+          robots-path: public/robots.txt
+          llms-path: public/llms.txt
+          check-paths: |
+            /blog/
+            /pricing

@@ -1,0 +1,42 @@
+{
+  "name": "@queryrev/ai-readiness-action",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A GitHub Action that fails a pull request when a robots.txt or llms.txt change closes the site to AI search crawlers. Offline by default; no model calls.",
+  "license": "MIT",
+  "author": "QueryRev",
+  "homepage": "https://queryrev.com/research/ai-search-readiness",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QueryRevAI/ai-readiness-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/QueryRevAI/ai-readiness-action/issues"
+  },
+  "keywords": [
+    "github-action",
+    "robots.txt",
+    "llms.txt",
+    "ai-crawlers",
+    "geo",
+    "aeo",
+    "seo"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "vite build --config vite.build.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@queryrev/ai-readiness": "file:./vendor/ai-readiness",
+    "@types/node": "^24.0.0",
+    "typescript": "~6.0.3",
+    "undici": "^8.12.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

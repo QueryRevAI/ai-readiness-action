@@ -1,0 +1,64 @@
+name: CI
+
+# An Action runs the committed file dist/index.js, so the file in the repository has to be the one
+# the source makes. This job builds it again from the lock file and fails when the result differs
+# from what is committed (or when dist/ was not committed at all).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Type-check, test, build and compare dist
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # `git status` shows a changed file and a file that is not committed alike.
+      - name: Check that dist/ is the build of this source
+        run: |
+          set -u
+          if [ -n "$(git status --porcelain -- dist)" ]; then
+            echo "::error::dist/ is not what 'npm run build' makes from this commit. Run the build and commit dist/."
+            git status --short -- dist
+            git diff --stat -- dist
+            exit 1
+          fi
+          echo "dist/ is the build of this source."
+
+      - name: Keep the file the build made when the check fails
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist-from-ci
+          path: dist
+          retention-days: 7
+          if-no-files-found: ignore

@@ -1,0 +1,16 @@
+{
+  "name": "@queryrev/ai-readiness",
+  "version": "1.0.1",
+  "private": true,
+  "description": "robots.txt parsing, AI crawler access verdicts, llms.txt checks and a guarded network layer. No model calls.",
+  "license": "MIT",
+  "author": "QueryRev",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "undici": "^8.12.3"
+  }
+}

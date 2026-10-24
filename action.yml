@@ -1,0 +1,54 @@
+name: QueryRev AI Readiness
+description: Fails a pull request when a robots.txt or llms.txt change closes the site to AI search crawlers or breaks llms.txt. Offline by default.
+author: QueryRev
+branding:
+  icon: check-circle
+  color: gray-dark
+
+inputs:
+  robots-path:
+    description: Path of the robots.txt in the checkout, relative to the repository root.
+    required: false
+    default: public/robots.txt
+  llms-path:
+    description: Path of the llms.txt in the checkout, relative to the repository root.
+    required: false
+    default: public/llms.txt
+  check-paths:
+    description: URL paths to test for each AI search and user-fetch crawler besides "/", one per line or comma separated, such as "/blog/" and "/pricing".
+    required: false
+    default: ''
+  base-ref:
+    description: Commit, branch or tag to compare against. On pull requests the default is the base commit of the pull request, which needs a checkout with fetch-depth 0. Without a base the files are checked as they are.
+    required: false
+    default: ''
+  fail-without-base:
+    description: Without a base to compare with, nothing "got worse", so a blocked crawler is a warning. Set "true" to fail the job on a blocked AI search or user-fetch crawler even then.
+    required: false
+    default: 'false'
+  comment:
+    description: On pull requests, write one comment and update it on every run. Not written for a pull request from a fork, whose token is read-only. "true" or "false".
+    required: false
+    default: 'true'
+  github-token:
+    description: Used only to write and update the one pull request comment. Needs pull-requests write.
+    required: false
+    default: ${{ github.token }}
+  site-url:
+    description: Optional. The address of the live site, such as https://www.example.com. When set, the action also runs the online check from the core library. Off by default; with it empty the action makes no network call but the comment.
+    required: false
+    default: ''
+  site-fail-on:
+    description: What in the online check fails the job. "never" (default; the live site may be what the pull request fixes), "fail" or "warn".
+    required: false
+    default: never
+
+outputs:
+  result:
+    description: '"pass" or "fail".'
+  failures:
+    description: The number of failing findings.
+
+runs:
+  using: node24
+  main: dist/index.js

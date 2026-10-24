@@ -1,0 +1,11 @@
+# Example Store
+
+> Example Store sells garden tools. This file lists the pages that explain what we sell and how to order.
+
+## Products
+- [Hand tools](https://www.example.com/hand-tools): spades, forks and trowels
+- [Watering](https://www.example.com/watering): hoses, cans and timers
+
+## Help
+- [Delivery](https://www.example.com/delivery): costs and times
+- [Returns](https://www.example.com/returns): how to send an item back

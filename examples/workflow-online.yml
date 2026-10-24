@@ -1,0 +1,30 @@
+# .github/workflows/ai-readiness-live.yml
+#
+# The same check, plus the online check of the live site once a week. The online check asks the
+# site for robots.txt first and reads a few public files. This run is report-only: the online
+# check does not fail the job (site-fail-on is never by default), and with no base to compare
+# with, the files are reported as warnings. No pull request comment is written on a schedule.
+name: AI readiness (live site)
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ai-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Write the full commit SHA of the release you have read (the release page shows it); the
+      # convenient alternative @v1 follows each 1.x release but can be moved.
+      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.0
+        with:
+          site-url: https://www.example.com

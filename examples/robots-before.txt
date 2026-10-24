@@ -1,0 +1,9 @@
+# robots.txt before the change
+User-agent: *
+Disallow: /cart
+Disallow: /search
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://www.example.com/sitemap.xml

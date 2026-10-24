@@ -1,0 +1,8 @@
+# robots.txt after the change: a catch-all rule closes the whole site
+User-agent: *
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://www.example.com/sitemap.xml
