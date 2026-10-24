@@ -16,7 +16,7 @@ const read = (name: string): string => readFileSync(join(root, name), 'utf8');
 
 function filesUnder(
   folder: string,
-  skip = ['node_modules', 'dist', '.turbo', 'coverage'],
+  skip = ['.git', 'node_modules', 'dist', '.turbo', 'coverage'],
 ): string[] {
   const out: string[] = [];
   for (const name of readdirSync(folder)) {
