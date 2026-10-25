@@ -32,7 +32,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.0
+      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.1
         with:
           check-paths: |
             /blog/

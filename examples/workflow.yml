@@ -28,7 +28,7 @@ jobs:
       # Write the full commit SHA of the release you have read (the release page shows it): a SHA
       # cannot be moved, a tag can. The convenient alternative is @v1, which follows each 1.x
       # release but trusts that the tag only moves to code you would have accepted.
-      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.0
+      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.1
         with:
           robots-path: public/robots.txt
           llms-path: public/llms.txt

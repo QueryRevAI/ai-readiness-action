@@ -1,5 +1,5 @@
 name: QueryRev AI Readiness
-description: Fails a pull request when a robots.txt or llms.txt change closes the site to AI search crawlers or breaks llms.txt. Offline by default.
+description: Fails a pull request when a robots.txt or llms.txt change closes the site to AI search or breaks llms.txt.
 author: QueryRev
 branding:
   icon: check-circle

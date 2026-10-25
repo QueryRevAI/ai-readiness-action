@@ -82,7 +82,7 @@ describe('action.yml', () => {
     );
     // Name, description and author are what the listing shows.
     expect(yml).toMatch(/^name: QueryRev AI Readiness$/m);
-    expect(yml).toMatch(/^description: .{30,}$/m);
+    expect(yml).toMatch(/^description: .{30,124}$/m); // the Marketplace refuses 125 or more
     expect(yml).toMatch(/^author: QueryRev$/m);
   });
 
@@ -127,8 +127,8 @@ describe('the workflows people copy', () => {
     // The README leads with the SHA form and shows @v1 as the convenient alternative.
     const readme = read('README.md');
     expect(readme).toMatch(/recommended form/);
-    expect(readme.indexOf('@<full-commit-sha> # v1.0.0')).toBeGreaterThan(-1);
-    expect(readme.indexOf('@<full-commit-sha> # v1.0.0')).toBeLessThan(
+    expect(readme.indexOf('@<full-commit-sha> # v1.0.1')).toBeGreaterThan(-1);
+    expect(readme.indexOf('@<full-commit-sha> # v1.0.1')).toBeLessThan(
       readme.indexOf('ai-readiness-action@v1'),
     );
     expect(all.join('\n')).toContain(
@@ -299,7 +299,7 @@ describe('public text', () => {
     expect(read('README.md')).toContain('pull-requests: write');
   });
 
-  it('is MIT, private, version 1.0.0, with the core as its one workspace dependency', () => {
+  it('is MIT, private, version 1.0.1, with the core as its one workspace dependency', () => {
     const manifest = JSON.parse(read('package.json')) as {
       license: string;
       private: boolean;
@@ -307,7 +307,7 @@ describe('public text', () => {
       dependencies?: Record<string, string>;
       devDependencies: Record<string, string>;
     };
-    expect(manifest).toMatchObject({ license: 'MIT', private: true, version: '1.0.0' });
+    expect(manifest).toMatchObject({ license: 'MIT', private: true, version: '1.0.1' });
     expect(manifest.dependencies).toBeUndefined();
     // In the repository the core is a workspace package; in the exported tree it is the
     // vendored copy, linked as a file dependency.

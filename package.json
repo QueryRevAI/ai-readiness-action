@@ -1,6 +1,6 @@
 {
   "name": "@queryrev/ai-readiness-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "A GitHub Action that fails a pull request when a robots.txt or llms.txt change closes the site to AI search crawlers. Offline by default; no model calls.",
   "license": "MIT",

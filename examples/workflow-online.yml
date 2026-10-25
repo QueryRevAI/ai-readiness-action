@@ -25,6 +25,6 @@ jobs:
 
       # Write the full commit SHA of the release you have read (the release page shows it); the
       # convenient alternative @v1 follows each 1.x release but can be moved.
-      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.0
+      - uses: QueryRevAI/ai-readiness-action@<full-commit-sha> # v1.0.1
         with:
           site-url: https://www.example.com
